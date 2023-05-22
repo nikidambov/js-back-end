@@ -15,7 +15,7 @@ const catalogPage = (data) => `
     <input type="submit" value="Create item">
 </form>
 <ul>
-    ${data.map(item => `<li>${item.name} - ${item.color} <a href="/delete?id=${item.id}" >[&#10006; Delete]</a></li>`).join('\n')}
+    ${data.map(item => `<li>${item.name} - ${item.color} <a href="/delete?id=${item.id}">[&#10006; Delete]</a></li>`).join('\n')}
 </ul>`;
 
 function catalogController(req, res) {
@@ -23,6 +23,12 @@ function catalogController(req, res) {
     res.write(html(catalogPage(data)));
     res.end();
 }
+
+/**
+ * 
+ * @param {IncomingMessage} req 
+ * @param {ServerResponse} res 
+ */
 
 function createController(req, res) {
     const form = new IncomingForm();

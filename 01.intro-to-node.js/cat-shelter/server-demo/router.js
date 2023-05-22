@@ -40,6 +40,7 @@ function post(pathname, handler) {
 }
 
 function defaultController(req, res) {
+    res.statusCode = 404;
     res.write(html(defaultPage));
     res.end();
 }

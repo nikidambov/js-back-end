@@ -15,7 +15,7 @@ function html(body, title = 'server') {
         </nav>
         ${body}
     </body>
-    </html>`
+    </html>`;
 }
 
 function addItem(name, color){
@@ -27,9 +27,10 @@ function addItem(name, color){
 }
 
 function getItems() {
+    console.log(data);
     return Object
-    .entries(data)
-    .map(([id, item]) => Object.assign({}, item, { id}));
+        .entries(data)
+        .map(([id, item]) => Object.assign({}, item, { id }));
 }
 
 function deleteItem(id) {
@@ -41,11 +42,11 @@ function nextId() {
 }
 
 const data = {
-    'w21s1s1s': {
+    '9a419f23': {
         name: 'Product 1',
-        color: 'red',
+        color: 'red'
     },
-    'e123sf6d': {
+    '7b14d2c1': {
         name: 'Product 2',
         color: 'green'
     }
