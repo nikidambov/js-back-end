@@ -46,6 +46,7 @@ function createController(req, res) {
 }
 
 function deleteController(req, res) {
+    console.log(req.url.searchParams.get('id'));
     const id = req.url.searchParams.get('id');
     deleteItem(id);
 
