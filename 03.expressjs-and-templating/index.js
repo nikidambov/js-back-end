@@ -1,6 +1,16 @@
 const express = require('express');
+const handlebars = require('express-handlebars');
 const path = require('path');
 const app = express();
+
+const { addCat, getCats } = require('./cats');
+
+// Add handlebars to express
+app.engine('hbs', handlebars.engine({
+    extname: 'hbs'
+}));
+app.set('view engine', 'hbs');
+
 
 // Add third party middleware
 const bodyParser = express.urlencoded({ extended: false });
@@ -47,7 +57,13 @@ app.get('/specific', (req, res, next) => {
 
 // Express router / Actions
 app.get('/', (req, res) => {
-    res.status(200).send('Hello from Express!');
+    //res.status(200).send('Hello from Express!');
+
+    res.render('home');
+});
+
+app.get('/about', (req, res) => {
+    res.render('about');
 });
 
 // Don't do this at home!
@@ -56,31 +72,17 @@ app.get('/', (req, res) => {
 //});
 
 app.get('/cats', (req, res) => {
-    res.send(`
-    <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="/css/style.css">
-</head>
-<body>
-    <form method="POST">
-        <label for="name">Name</label>
-        <input type="text" id="name" name="name">
-        <label for="age">Age</label>
-        <input type="number" id="age">
-        <input type="submit" value="create">
-    </form>
-</body>
-</html>
-    `);
+    const cats = getCats();
+    const firstCat = cats[0];
+    res.render('cats', { cats });
 });
 
 app.post('/cats', (req, res) => {
-    console.log(req.body);
-    res.status(201).send('Cat has been created!');
+    addCat(req.body.name, Number(req.body.age));
+
+    res.redirect('/cats');
+
+    //res.status(201).send('Cat has been created!');
 });
 
 app.get('/cats/:catId', (req, res) => {
