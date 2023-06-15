@@ -3,9 +3,17 @@ const mongoose = require('mongoose');
 const catSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
-        minLength: 3,
+        required: [true, 'Name is required!'],
+        minLength: [3, 'Custom min length message!'],
         maxLength: 20,
+    },
+    color: {
+        type: String,
+        required: false,
+        enum: {
+            values: ['white', 'black', 'yellow'],
+            message: '{VALUE} is wrong color',
+        }
     },
     age: Number,
     breed: String,
