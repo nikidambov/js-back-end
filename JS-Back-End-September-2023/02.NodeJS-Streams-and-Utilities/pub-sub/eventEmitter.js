@@ -1,23 +1,21 @@
-const eventBus = require("./eventBus");
+const EventEmitter = require("events");
+const eventEmitter = new EventEmitter();
 
-eventBus.subscribe("Cat-added", () => {
+eventEmitter.on("Cat-added", () => {
     console.log("Cat has been added.");
 });
 
-const unsubscribe = eventBus.subscribe("Cat-added", (catName, age) => {
+eventEmitter.on("Cat-added", (catName, age) => {
     console.log(`Cat has been added second time! Its name is ${catName} and is ${age} y/o.`);
 });
 
-eventBus.subscribe("Cat-removed", () => {
+eventEmitter.on("Cat-removed", () => {
     console.log("Cat has been removed.");
 });
 
-eventBus.publish("Cat-added", "Puffy", 8);
-eventBus.publish("Cat-removed");
-unsubscribe();
-console.log("----------------");
-eventBus.publish("Cat-added", "Puffy", 8);
-eventBus.publish("Cat-removed");
+eventEmitter.emit("Cat-added", "Puffy", 8);
+eventEmitter.emit("Cat-removed");
+
 
 
 
